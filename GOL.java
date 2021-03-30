@@ -16,6 +16,11 @@ public class GOL {
 	}
 	
 	public static GOL makeGOLonChain(String s) {
+		for (int i = 0; i < s.length(); i++) {
+			if (!s.substring(i, i +1).equals(" ") || !s.substring(i, i+1).equals("O")){
+				throw new IllegalArgumentException("A cell is either O or a space");
+			}
+		}
 		_ring = null;
 		GOL x = new GOL(s);
 		return x;

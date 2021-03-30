@@ -5,39 +5,56 @@ import java.util.ArrayList;
 
 public class GOL {
 
-	private ArrayList<String> _cells = new ArrayList<String>();
-	private Integer ring;
+	private static ArrayList<String> _cells = new ArrayList<String>();
+	private static Integer _ring;
+	private static int _numCells;
 
-	public GOL(String s, Integer x) {
+	private GOL(String s) {
 		for (int i = 0; i < s.length(); i++) {
 			_cells.add(i, s.substring(i, i + 1));
 		}
-		if (x == null) {
-			ring = null;
-		}
-		else {
-			ring = 0;
-		}
 	}
-
-	public GOL(int n, Integer x) {
+	
+	public static GOL makeGOLonChain(String s) {
+		_ring = null;
+		GOL x = new GOL(s);
+		return x;
+	}
+	
+	public static GOL makeGOLonRing(String s) {
+		_ring = 0;
+		GOL x = new GOL(s);
+		return x;
+	}
+	
+	private GOL(int n) {
+		n = _numCells;
 		Random random = new Random();
 		for (int i = 0; i < n; i++) {
 			String cell = "O ";
 			int select = random.nextInt(cell.length());
 			_cells.add(i, String.valueOf(cell.charAt(select)));
 		}
-		if (x == null) {
-			ring = null;
-		}
-		else {
-			ring = 0;
-		}
+		
+	}
+
+	public static GOL makeGOLonChain(int n) {
+		_ring = null;
+		_numCells = n;
+		GOL x = new GOL(n);
+		return x;
+	}
+	
+	public static GOL makeGOLonRing(int n) {
+		_ring = 0;
+		_numCells = n;
+		GOL x = new GOL(n);
+		return x;
 	}
 
 	public String toString() {
 		String a = "";
-		if (ring == null) {
+		if (_ring == null) {
 			a += "[";
 		}
 		else {
@@ -46,7 +63,7 @@ public class GOL {
 		for (String cell : _cells) {
 			a = a + cell;
 		}
-		if (ring == null) {
+		if (_ring == null) {
 			a += "]";
 		}
 		else {
@@ -65,7 +82,7 @@ public class GOL {
 				if (_cells.get(i + 1).equals("O")) {
 					neighborCount++;
 				}
-				if (ring != null) {
+				if (_ring != null) {
 					if (_cells.get(_cells.size()-1).equals("O")) {
 						neighborCount++;
 					}
@@ -76,7 +93,7 @@ public class GOL {
 				if (_cells.get(i - 1).equals("O")) {
 					neighborCount++;
 				}
-				if (ring != null) {
+				if (_ring != null) {
 					if (_cells.get(0).equals("O")) {
 						neighborCount++;
 					}
@@ -104,15 +121,9 @@ public class GOL {
 	}
 
 	public static void main(String args[]) {
-//		GOL x = new GOL("OO O ", 1);
-//		int t = 0;
-//		do {
-//			System.out.println("" + x.toString());
-//			x.next();
-//			t++;
-//		} while (t < 10);
+
 		
-		GOL p = new GOL(6, 1);
+		GOL p = makeGOLonRing("  O   ");
 		int t = 0;
 		do {
 			System.out.println("" + p.toString());

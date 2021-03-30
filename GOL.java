@@ -22,6 +22,11 @@ public class GOL {
 	}
 	
 	public static GOL makeGOLonRing(String s) {
+		for (int i = 0; i < s.length(); i++) {
+			if (!s.substring(i, i +1).equals(" ") || !s.substring(i, i+1).equals("O")){
+				throw new IllegalArgumentException("A cell is either O or a space");
+			}
+		}
 		_ring = 0;
 		GOL x = new GOL(s);
 		return x;
@@ -39,6 +44,9 @@ public class GOL {
 	}
 
 	public static GOL makeGOLonChain(int n) {
+		if (n <= 0) {
+			throw new IllegalArgumentException("number of cells must be greater than 0");
+		}
 		_ring = null;
 		_numCells = n;
 		GOL x = new GOL(n);
@@ -46,6 +54,9 @@ public class GOL {
 	}
 	
 	public static GOL makeGOLonRing(int n) {
+		if (n <= 0) {
+			throw new IllegalArgumentException("number of cells must be greater than 0");
+		}
 		_ring = 0;
 		_numCells = n;
 		GOL x = new GOL(n);
